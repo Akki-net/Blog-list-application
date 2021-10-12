@@ -4,8 +4,6 @@ import Content from './components/tabpane';
 
 const App = () => {
  
- 
-
   return(
     <div>
      <Nav />

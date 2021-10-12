@@ -1,0 +1,25 @@
+{
+  "blog": [
+    {
+      "author": "Akash",
+      "title": "Web Designing",
+      "description": "Practice makes a man perfect",
+      "like": 19,
+      "id": 1
+    },
+    {
+      "author": "Panwale",
+      "title": "Banarasi Pan",
+      "description": "Pan khao mast ho jao",
+      "like": 7,
+      "id": 2
+    },
+    {
+      "author": "Jwala",
+      "title": "jwalamukhi",
+      "description": "Aag lgao",
+      "like": 7,
+      "id": 3
+    }
+  ]
+}

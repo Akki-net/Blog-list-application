@@ -1,4 +1,5 @@
 import React from "react";
+import blogServices from '../services/blogs'
 
 const Form = ({ blog, setBlog, bSet,bSetter }) => {
     const changeHandler = Event => {
@@ -13,13 +14,17 @@ const Form = ({ blog, setBlog, bSet,bSetter }) => {
     const submitHandler = Event => {
         Event.preventDefault();
         if(blog.author!=='' && blog.title!=='' && blog.description!==''){
+        console.log(blog);
+         blogServices.create(blog).then(newObj => {
+           console.log(newObj)
            bSetter(bSet.concat(blog));
-           setBlog({
-                author: '',
-                title: '',
-                description: '',
-                like: 0
+            setBlog({
+              author: '',
+              title: '',
+              description: '',
+              like: 0
             });
+          })  
         }
         else{
             console.log('missing content')

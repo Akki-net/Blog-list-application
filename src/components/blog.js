@@ -1,12 +1,21 @@
 import React from 'react';
+import blogServices from '../services/blogs';
 
-const Blog = ({ blog, setBlogArray, setBlog }) => {
-  const likeHandler = b => {
-    let elem = { ...b };
+const Blog = ({ blog, setBlogArray }) => {
+  const likeHandler = id => {
+    const b = blog.filter(b => b.id === id);
+    let elem;
+    for(const x of b.values()){
+        elem = x
+    }
     elem.like += 1;
 
-    setBlogArray(blog.concat(elem).filter(f => f!==b));
-
+    blogServices.update(id, elem)
+    .then(updatedItem => {
+        setBlogArray(
+            blog.filter(bf => bf.id!==id ? bf : updatedItem)
+            )
+    })    
   }
     
     return (
@@ -21,7 +30,7 @@ const Blog = ({ blog, setBlogArray, setBlog }) => {
                     <div className="pb-2">
                         {b.description}
                     </div>  
-                    <span className="badge badge-pill badge-info" onClick={() => likeHandler(b)}><i className="fas fa-thumbs-up"></i>  {b.like}   </span>
+                    <span className="badge badge-pill badge-info" onClick={() => likeHandler(b.id)}><i className="fas fa-thumbs-up"></i>  {b.like}   </span>
                       
                     </div>
                 </div>
