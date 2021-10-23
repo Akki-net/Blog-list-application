@@ -1,5 +1,5 @@
 import axios from 'axios';
-const baseURL = 'http://localhost:3002/blog'
+const baseURL = '/api/blogs';
 
 const getAll = () => {
     const request = axios.get(baseURL);
@@ -14,6 +14,12 @@ const create = (newObj) => {
 const update = (id, newObj) => {
     const request = axios.put(`${baseURL}/${id}`,newObj);
     return request.then(response => response.data)
-}
+};
 
-export default { getAll, create, update }
+const del = (id) => {
+    const request = axios.delete(`${baseURL}/${id}`);
+    return request.then(response => response.data)
+};
+
+// eslint-disable-next-line import/no-anonymous-default-export
+export default { getAll, create, update, del };

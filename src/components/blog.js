@@ -9,13 +9,26 @@ const Blog = ({ blog, setBlogArray }) => {
         elem = x
     }
     elem.like += 1;
-
+  
     blogServices.update(id, elem)
     .then(updatedItem => {
         setBlogArray(
             blog.filter(bf => bf.id!==id ? bf : updatedItem)
             )
-    })    
+    })
+    .catch(error => console.log(error.response.data))
+  }
+
+  const closeHandler = id => { 
+    const result = window.confirm('Are you sure you want to remove it?');
+   
+    if(result === true){
+    blogServices.del(id)
+    .then(response => {
+        setBlogArray(blog.filter(b => b.id!==id));
+    })
+    .catch(error => console.log(error.response.data))
+    }
   }
     
     return (
@@ -24,6 +37,7 @@ const Blog = ({ blog, setBlogArray }) => {
                 <div className="bg-secondary rounded mb-3" key={i}>
                     <div className="toast-header">
                    <h3 className="mr-auto text-primary"> <strong> {b.author} </strong> </h3>
+                   <button className='close' onClick={() => closeHandler(b.id)}>&times;</button>
                     </div>
                     <div className="toast-body pt-0">
                     <h4> {b.title} </h4>  

@@ -14,17 +14,16 @@ const Form = ({ blog, setBlog, bSet,bSetter }) => {
     const submitHandler = Event => {
         Event.preventDefault();
         if(blog.author!=='' && blog.title!=='' && blog.description!==''){
-        console.log(blog);
          blogServices.create(blog).then(newObj => {
-           console.log(newObj)
-           bSetter(bSet.concat(blog));
+           bSetter(bSet.concat(newObj));
             setBlog({
               author: '',
               title: '',
               description: '',
               like: 0
             });
-          })  
+          })
+          .catch(error => console.log(error.response.data)) 
         }
         else{
             console.log('missing content')
