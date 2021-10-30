@@ -1,6 +1,15 @@
 import React from "react";
+import LoginForm from './loginForm';
+import blogService from '../services/blogs';
 
-const Nav = ({user}) => {
+const Nav = ({user, setUser}) => {
+  const handleLogout = () => {
+    window.localStorage.removeItem('blogLoggedUser');
+    blogService.setToken(null);
+    setUser(null);
+  }
+  const login = () => <LoginForm/>
+
     return (<div>
         <nav className="navbar navbar-expand-md bg-dark navbar-dark">
         <a className="navbar-brand mr-lg-auto" href="https://polar-mountain-74733.herokuapp.com/">
@@ -18,7 +27,11 @@ const Nav = ({user}) => {
           </li>
         </ul>
         </nav>
-        <div className="d-flex justify-content-end bg-warning"> {user.name} logged in </div>
+        <div className="d-flex align-items-center justify-content-end bg-warning p-2">
+        <div className="mr-2"> {user.name} logged in</div>
+        <button className="btn btn-sm btn-danger" onClick={handleLogout}>logout</button>
+        </div>
+        {user === null && login()}
         </div>
     )
 }

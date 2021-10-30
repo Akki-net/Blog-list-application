@@ -1,10 +1,10 @@
 import Nav from './nav';
 import Content from './tabpane';
 
-const BlogForm = ({user}) => {
+const BlogForm = ({user, setUser}) => {
     return (
     <div>
-        <Nav user={user} />
+        <Nav user={user} setUser={setUser} />
         <Content />
     </div>
     )

@@ -16,7 +16,7 @@ useEffect(() => {
 }, [])
 
   const login = () => <LoginForm setUser={setUser} />;
-  const blogs = () => <BlogForm user={user} />
+  const blogs = () => <BlogForm user={user} setUser={setUser}/>
   return(
     <div>
       {user!== null && blogs()}
