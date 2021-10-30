@@ -37,10 +37,14 @@ const Blog = ({ blog, setBlogArray }) => {
     .then(response => {
         setBlogArray(blog.filter(b => b.id!==id));
     })
-    .catch(error => console.log(error.response.data))
+    .catch(error => {
+        console.log(error.response.data)
+        alert('error: attempted by a wrong user')
+    })
     }
   }
-    
+
+
     return (
         <div className="mt-3">
             {blog.map((b,i) => (
