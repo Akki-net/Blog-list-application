@@ -1,15 +1,25 @@
-import React from 'react';
+import React,{useState} from 'react';
 import blogServices from '../services/blogs';
 
 const Blog = ({ blog, setBlogArray }) => {
+    const [like, setLike] = useState(new Boolean(false));
+
   const likeHandler = id => {
     const b = blog.filter(b => b.id === id);
     let elem;
     for(const x of b.values()){
         elem = x
     }
-    elem.like += 1;
-  
+
+    if(like){
+        elem.like += 1;
+        setLike(!like)
+    }
+    else{
+        elem.like -= 1;
+        setLike(!like)
+    }
+
     blogServices.update(id, elem)
     .then(updatedItem => {
         setBlogArray(

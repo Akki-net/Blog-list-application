@@ -18,7 +18,7 @@ const Content = () => {
     }, []);
 
     return (
-        <div className="tab-content">
+        <div className="tab-content mt-2">
     <div id="home" className="container tab-pane active">
         <Form blog={blog} setBlog={setBlog} bSet={blogArray} bSetter={setBlogArray} />
         <Blog blog={blogArray} setBlogArray={setBlogArray} />

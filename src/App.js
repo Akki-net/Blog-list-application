@@ -1,13 +1,16 @@
-import React from 'react';
-import Nav from './components/nav';
-import Content from './components/tabpane';
+import React, { useState } from 'react';
+import LoginForm from './components/loginForm';
+import BlogForm from './components/blogForm';
 
 const App = () => {
- 
+const [ user, setUser ] = useState(null);
+
+  const login = () => <LoginForm setUser={setUser} />;
+  const blogs = () => <BlogForm user={user} />
   return(
     <div>
-     <Nav />
-     <Content />
+      {user!== null && blogs()}
+      {user === null && login()}    
     </div>
   )
 };

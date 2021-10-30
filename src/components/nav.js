@@ -1,7 +1,7 @@
 import React from "react";
 
-const Nav = () => {
-    return (
+const Nav = ({user}) => {
+    return (<div>
         <nav className="navbar navbar-expand-md bg-dark navbar-dark">
         <a className="navbar-brand mr-lg-auto" href="https://polar-mountain-74733.herokuapp.com/">
           <img src="https://static.thenounproject.com/png/215839-200.png" alt="logo" style={{width:"50px", height:"40px"}}/>  <span>ShareIdea</span>
@@ -18,6 +18,8 @@ const Nav = () => {
           </li>
         </ul>
         </nav>
+        <div className="d-flex justify-content-end bg-warning"> {user.name} logged in </div>
+        </div>
     )
 }
 
