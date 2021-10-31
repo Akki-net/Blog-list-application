@@ -1,32 +1,41 @@
-import React,{useState} from 'react';
+import React,{useState, useEffect} from 'react';
 import blogServices from '../services/blogs';
+import likeServices from '../services/like';
 
 const Blog = ({ blog, setBlogArray }) => {
-    const [like, setLike] = useState(new Boolean(false));
+    const [likeArray, setLikeArray] = useState(new Array(blog.length));
 
-  const likeHandler = id => {
-    const b = blog.filter(b => b.id === id);
-    let elem;
-    for(const x of b.values()){
-        elem = x
-    }
+   useEffect(async () => {
+        const selfLikes = await likeServices.getAll();
+        console.log('check value: ', selfLikes);
+        const initialArr = selfLikes.map(l => l.like);
+        setLikeArray(initialArr)
+    }, [])
 
-    if(like){
+  const likeHandler = async id => {
+    const elem = blog.find(b => b.id === id);
+    const i = blog.findIndex(b => b.id === id);
+    console.log('index:', i);
+    console.log('original arr:', likeArray);
+    const newlikeArr = likeArray.map((l,j) =>  i === j ? !l : l)
+    console.log('new Arr:', newlikeArr);
+    const returnedLike = await likeServices.goLike(newlikeArr);
+    const myLike = returnedLike.map(l => l.like);
+    setLikeArray(myLike);
+    if(!likeArray[i]){
         elem.like += 1;
-        setLike(!like)
     }
     else{
         elem.like -= 1;
-        setLike(!like)
     }
-
+    
     blogServices.update(id, elem)
     .then(updatedItem => {
         setBlogArray(
             blog.filter(bf => bf.id!==id ? bf : updatedItem)
             )
     })
-    .catch(error => console.log(error.response.data))
+    .catch(error => console.log(error.response.data)) 
   }
 
   const closeHandler = id => { 
