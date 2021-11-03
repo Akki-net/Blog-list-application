@@ -5,7 +5,7 @@ const BlogForm = ({user, setUser}) => {
     return (
     <div>
         <Nav user={user} setUser={setUser} />
-        <Content />
+        <Content user={user} setUser={setUser} />
     </div>
     )
 }
