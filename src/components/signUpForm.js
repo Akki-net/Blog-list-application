@@ -16,9 +16,9 @@ const SignUpForm = ({setSignUp}) => {
                 const userForSignup = {
                     name, username, password
                 };
-                console.log('signup details', userForSignup);
-                const rspnUser = await userServices.createUser(userForSignup);
-                setSignUp(rspnUser);
+                
+                setSignUp(userForSignup);
+                await userServices.createUser(userForSignup);
                 setName('');
                 setUsername('');
                 setPassword('');
@@ -55,11 +55,11 @@ const SignUpForm = ({setSignUp}) => {
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="pwd">Password:</label>
-                                        <input type="text" className="form-control" placeholder="Enter password" id="pwd" value={password} onChange={({target}) => setPassword(target.value)} />
+                                        <input type="password" className="form-control" placeholder="Enter password" id="pwd" value={password} onChange={({target}) => setPassword(target.value)} />
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="rptpwd">Repeat Password:</label>
-                                        <input type="text" className="form-control" placeholder="Repeat password" id="rptpwd" value={repeatPassword} onChange={({target}) => setRepeatPassword(target.value)} />
+                                        <input type="password" className="form-control" placeholder="Repeat password" id="rptpwd" value={repeatPassword} onChange={({target}) => setRepeatPassword(target.value)} />
                                         <span className="text-warning"> {errPwd} </span>
                                     </div>
                                     <div className="form-group form-check">
@@ -68,7 +68,7 @@ const SignUpForm = ({setSignUp}) => {
                                         </label>
                                     </div>
                                     <p>By creating an account you agree to our <span className="text-info">Terms & Privacy</span>.</p>
-                                    <button type="submit" className="btn btn-primary" onClick={handleSignUp} >Submit</button>
+                                    <button type="submit" className="btn btn-primary" onClick={handleSignUp} data-dismiss="modal" >Submit</button>
                                     <button type="button" className="btn btn-danger float-right" data-dismiss="modal">Cancel</button>
                             </div>
 
