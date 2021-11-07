@@ -1,6 +1,7 @@
 import React,{useState} from 'react';
 import blogServices from '../services/blogs';
 import loginServices from '../services/login';
+import Toggleable from '../components/Toggleable'
 
 const Blog = ({ blog, setBlogArray, user, setUser }) => {
     const [likeArray, setLikeArray] = useState([]);
@@ -66,12 +67,13 @@ const Blog = ({ blog, setBlogArray, user, setUser }) => {
                    <button className='close' onClick={() => closeHandler(b.id)}>&times;</button>
                     </div>
                     <div className="toast-body pt-0">
-                    <h4> {b.title} </h4>  
+                    <h4> {b.title} </h4>
+                    <Toggleable buttonLabel="view">  
                     <div className="pb-2">
                         {b.description}
                     </div>  
-                    <span className="badge badge-pill badge-info" onClick={() => likeHandler(b.id)}><i className="fas fa-thumbs-up"></i>  {b.like}   </span>
-                      
+                    <span className="badge badge-pill badge-info" onClick={() => likeHandler(b.id)}><i className="fas fa-thumbs-up"></i>  {b.like}  </span> 
+                    </Toggleable>
                     </div>
                 </div>
             ))}
