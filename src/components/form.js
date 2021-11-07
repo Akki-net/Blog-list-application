@@ -1,7 +1,13 @@
-import React from "react";
-import blogServices from '../services/blogs'
+import React, {useState} from "react";
 
-const Form = ({ blog, setBlog, bSet,bSetter }) => {
+const Form = ({createBlog}) => {
+  const [ blog, setBlog ] = useState({
+    author: '',
+    title: '',
+    description: '',
+    like: 0
+  });
+
     const changeHandler = Event => {
         const nam = Event.target.name;
         const val = Event.target.value;
@@ -12,23 +18,17 @@ const Form = ({ blog, setBlog, bSet,bSetter }) => {
     }
     
     const submitHandler = Event => {
-        Event.preventDefault();
-        if(blog.author!=='' && blog.title!=='' && blog.description!==''){
-         blogServices.create(blog).then(newObj => {
-           bSetter(bSet.concat(newObj));
-            setBlog({
-              author: '',
-              title: '',
-              description: '',
-              like: 0
-            });
-          })
-          .catch(error => console.log(error.response.data)) 
-        }
-        else{
-            console.log('missing content')
-        }
+      Event.preventDefault();
+      createBlog(blog)
+
+      setBlog({
+        author: '',
+        title: '',
+        description: '',
+        like: 0
+      })
     }
+
     return (
         <form onSubmit={submitHandler} >
         <div className="form-row">

@@ -1,26 +1,35 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import Form from './form';
 import Blog from './blog';
 import blogServices from '../services/blogs'
+import Toggleable from './Toggleable'
 
 const Content = ({user, setUser}) => {
     const [ blogArray, setBlogArray ] = useState([]);
-    const [ blog, setBlog ] = useState({
-      author: '',
-      title: '',
-      description: '',
-      like: 0
-    });
+    
+    const blogFormRef = useRef();
 
     useEffect(() => {
       blogServices.getAll()
       .then(returnedList => setBlogArray(returnedList))
     }, []);
 
+    const addBlog = (blogObject) => {
+       blogFormRef.current.toggleVisibility()
+       blogServices
+       .create(blogObject)
+       .then(newObj => {
+         setBlogArray(blogArray.concat(newObj));
+        })
+        .catch(error => console.log(error.response.data))   
+      }
+
     return (
         <div className="tab-content mt-2">
     <div id="home" className="container tab-pane active">
-        <Form blog={blog} setBlog={setBlog} bSet={blogArray} bSetter={setBlogArray} />
+      <Toggleable buttonLabel="Create new Blog" ref={blogFormRef} >
+        <Form createBlog={addBlog} />
+      </Toggleable>
         <Blog blog={blogArray} setBlogArray={setBlogArray} user={user} setUser={setUser} />
     </div>
     <div id="menu1" className="container tab-pane fade">
